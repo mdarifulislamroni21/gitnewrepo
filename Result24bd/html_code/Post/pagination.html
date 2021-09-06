@@ -1,0 +1,17 @@
+<ul class="pagination justify-content-center">
+  {% if page.has_previous %}
+  <a href="?page={{ page.previous_page_number }}">
+  <li class="page-item active" aria-current="page">
+    <span class="page-link"><i class="fas fa-chevron-left"></i></span>
+  </li>
+  </a>
+  {% endif %}
+  <li class="page-item"><a class="page-link" >{{ page.number }}</a></li>
+  {% if page.has_next %}
+  <a href="?page={{ page.next_page_number }}">
+    <li class="page-item active" aria-current="page">
+      <span class="page-link"><i class="fas fa-chevron-right"></i></span>
+    </li>
+  </a>
+  {% endif %}
+</ul>

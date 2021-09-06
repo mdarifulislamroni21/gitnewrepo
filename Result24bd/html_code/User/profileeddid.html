@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block body_block %}
+<style>
+  input#id_picture {
+    width: 100%;
+    border-radius: 50px;
+    background: white;
+    padding: 3px 9px;
+}
+</style>
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+<section class="signup">
+
+   <div style="background-color:#e6e8e6;" class="form container w-600 border p-5 mt-5 mb-5">
+     <h1 class="" style="font-size:45px;text-align:center;padding-bottom:20px">Edit Profile</h1>
+     <form enctype="multipart/form-data" method="POST">
+        {{ form|crispy }}
+        {% csrf_token %}
+        <button type="submit" class="btn btn-info">Save Profile</button>
+     </form>
+
+</section>
+{% endblock %}

@@ -1,0 +1,579 @@
+{% extends 'base.html' %}
+{% block body_block %}
+<section id="hero">
+
+  <div class="container-xl">
+
+    <div class="row gy-4">
+
+      <div class="col-lg-8">
+
+        <!-- featured post large -->
+        {% for all in allpost|slice:":1" %}
+        <div class="post featured-post-lg">
+          <div class="details clearfix">
+            <a href="{% url 'CategoryRead' category=all.category %}" class="category-badge">{{ all.category }}</a>
+            <h2 class="post-title"><a href="{% url 'ReadMore' category=all.category slug=all.slug %}">{{all.title}}</a></h2>
+            <ul class="meta list-inline mb-0">
+              <li class="list-inline-item"><a href="#">{{ all.user.profile.username }}</a></li>
+              <li class="list-inline-item">Publish by: {{ all.created|date:"d M Y" }}</li>
+            </ul>
+          </div>
+          <a href="{% url 'ReadMore' category=all.category slug=all.slug %}">
+            <div class="thumb rounded">
+              <div class="inner data-bg-image" data-bg-image="/media/{{all.image}}"></div>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+         <!-- Ad Aria -->
+         <!-- <div class="border" style="width:728px;height:90px;text-align:center;margin:25px auto">
+             ad aria
+         </div> -->
+         <!-- End Ad Aria -->
+      </div>
+
+      <div class="col-lg-4">
+
+        <!-- post tabs -->
+        <div class="post-tabs rounded bordered">
+          <!-- tab navs -->
+          <ul class="nav nav-tabs nav-pills nav-fill" id="postsTab" role="tablist">
+            <li class="nav-item" role="presentation"><button aria-controls="popular" aria-selected="true" class="nav-link active" data-bs-target="#popular" data-bs-toggle="tab" id="popular-tab" role="tab" type="button">Popular</button></li>
+            <li class="nav-item" role="presentation"><button aria-controls="recent" aria-selected="false" class="nav-link" data-bs-target="#recent" data-bs-toggle="tab" id="recent-tab" role="tab" type="button">Recent</button></li>
+          </ul>
+          <!-- tab contents -->
+          <div class="tab-content" id="postsTabContent">
+            <!-- loader -->
+            <div class="lds-dual-ring"></div>
+            <!-- popular posts -->
+            <div aria-labelledby="popular-tab" class="tab-pane fade show active" id="popular" role="tabpanel">
+              <!-- post -->
+              {% for popular in populars|slice:":4" %}
+              <div class="post post-list-sm circle">
+                <div class="thumb circle">
+                  <a href="{% url 'ReadMore' category=popular.category slug=popular.slug %}">
+                    <div class="inner">
+                      <img src="/media/{{ popular.image }}"  alt="post-title" />
+                    </div>
+                  </a>
+                </div>
+                <div class="details clearfix">
+                  <h6 class="post-title my-0"><a href="{% url 'ReadMore' category=popular.category slug=popular.slug %}">{{ popular.title|slice:":50" }}</a></h6>
+                  <ul class="meta list-inline mt-1 mb-0">
+                    <li class="list-inline-item">{{ popular.created|date:"d M Y" }}</li>
+                  </ul>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            <!-- recent posts -->
+            <div aria-labelledby="recent-tab" class="tab-pane fade" id="recent" role="tabpanel">
+              <!-- post -->
+              {% for all in allpost|slice:"1:5" %}
+              <div class="post post-list-sm circle">
+                <div class="thumb circle">
+                  <a href="{% url 'ReadMore' category=all.category slug=all.slug %}">
+                    <div class="inner">
+                      <img src="/media/{{ all.image }}" alt="post-title" />
+                    </div>
+                  </a>
+                </div>
+                <div class="details clearfix">
+                  <h6 class="post-title my-0"><a href="{% url 'ReadMore' category=all.category slug=all.slug %}">{{ all.title|slice:":50" }}</a></h6>
+                  <ul class="meta list-inline mt-1 mb-0">
+                    <li class="list-inline-item">{{ all.created|date:"d M Y" }}</li>
+                  </ul>
+                </div>
+              </div>
+              {% endfor %}
+              <!-- end top section aria -->
+              <!-- end top section aria -->
+              <!-- end top section aria -->
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- section main content -->
+<section class="main-content">
+  <div class="container-xl">
+
+    <div class="row gy-4">
+
+      <div class="col-lg-8">
+
+        <!-- section header -->
+        <div class="section-header">
+          <h3 class="section-title"><a style="color:#203656" href="#">Admission</a></h3>
+          <img src="/media/images/wave.svg" class="wave" alt="wave" />
+        </div>
+
+        <div class="padding-30 rounded bordered">
+          <div class="row gy-5">
+            {% for admission in admissions|slice:":1" %}
+            <div class="col-sm-6">
+              <!-- post -->
+              <div class="post">
+                <div class="thumb rounded">
+                  <a href="{% url 'CategoryRead' category=admission.category %}" class="category-badge position-absolute">{{ admission.category }}</a>
+                  <a href="{% url 'ReadMore' category=admission.category slug=admission.slug %}">
+                    <div class="inner">
+                      <img src="/media/{{ admission.image }}" alt="post-title" />
+                    </div>
+                  </a>
+                </div>
+                <ul class="meta list-inline mt-4 mb-0">
+                  <li class="list-inline-item"><a href="{% url 'home' %}"><img src="/media/images/other/Result24bd.png" style="border-radius:50%;background:#ebebeb;" class="author" width="30px" height="30px" alt="author"/>{{ admission.user.profile.username }}</a></li>
+                  <li class="list-inline-item">{{ admission.created|date:"d M Y" }}</li>
+                </ul>
+                <h5 class="post-title mb-3 mt-3"><a href="{% url 'ReadMore' category=admission.category slug=admission.slug %}">{{ admission.title }}</a></h5>
+                <p class="excerpt mb-0">{{ admission.discription|slice:":220"|safe }} ...  </p>
+              </div>
+            </div>
+            {% endfor %}
+            <div class="col-sm-6">
+              <!-- post -->
+              {% for admission in admissions|slice:"1:5" %}
+              <div class="post post-list-sm square">
+                <div class="thumb rounded">
+                  <a href="{% url 'ReadMore' category=admission.category slug=admission.slug %}">
+                    <div class="inner">
+                      <img src="/media/{{ admission.image }}" alt="post-title" />
+                    </div>
+                  </a>
+                </div>
+                <div class="details clearfix">
+                  <h6 class="post-title my-0"><a href="{% url 'ReadMore' category=admission.category slug=admission.slug %}">{{ admission.title|slice:":50" }} ...</a></h6>
+                  <ul class="meta list-inline mt-1 mb-0">
+                    <li class="list-inline-item">{{ admission.created|date:"d M Y" }}</li>
+                  </ul>
+                </div>
+              </div>
+              {% endfor %}
+
+            </div>
+          </div>
+          <div class="text-center pt-5">
+            <button class="btn btn-simple">View More</button>
+          </div>
+        </div>
+
+        <!-- --------------------------------------------------------------------------- -->
+                                          <!-- end-admission aria -->
+        <!-- --------------------------------------------------------------------------- -->
+
+        <div class="spacer" data-height="50"></div>
+
+        <!-- horizontal ads -->
+        <div class="ads-horizontal text-md-center">
+          <span class="ads-title">- Sponsored Ad -</span>
+          <a href="https://click.daraz.com.bd/e/_66FpX" target="_blank">
+            <img src="/media/Ads/728x90.jpg" alt="Advertisement" />
+          </a>
+        </div>
+
+        <div class="spacer" data-height="50"></div>
+
+        <!-- section header -->
+        <div class="section-header">
+          <h3 class="section-title"><a style="color:#203656" href="#">Notice</a></h3>
+          <img src="/media/images/wave.svg" class="wave" alt="wave" />
+        </div>
+
+        <div class="padding-30 rounded bordered">
+          <div class="row gy-5">
+            <div class="col-sm-6">
+              <!-- post large -->
+              {% for notice in notices|slice:":1" %}
+              <div class="post">
+                <div class="thumb rounded">
+                  <a href="{% url 'CategoryRead' category=notice.category %}" class="category-badge position-absolute">{{ notice.category }}</a>
+                  <a href="{% url 'ReadMore' category=notice.category slug=notice.slug %}">
+                    <div class="inner">
+                      <img src="/media/{{ notice.image }}" alt="post-title" />
+                    </div>
+                  </a>
+                </div>
+                <ul class="meta list-inline mt-4 mb-0">
+                  <li class="list-inline-item"><a href="{% url 'home' %}"><img src="/media/images/other/Result24bd.png" style="border-radius:50%;background:#ebebeb;" class="author" width="30px" height="30px" alt="author"/>{{ notice.user.profile.username }}</a></li>
+                  <li class="list-inline-item">{{ notice.created|date:"d M Y" }}</li>
+                </ul>
+                <h5 class="post-title mb-3 mt-3"><a href="{% url 'ReadMore' category=notice.category slug=notice.slug %}">{{ notice.title|slice:":60" }}</a></h5>
+                <p class="excerpt mb-0">{{ notice.discription|slice:":200"|safe }}</p>
+              </div>
+              {% endfor %}
+              <!-- post -->
+              {% for notice in notices|slice:"1:3" %}
+              <div class="post post-list-sm square before-seperator">
+                <div class="thumb rounded">
+                  <a href="{% url 'ReadMore' category=notice.category slug=notice.slug %}">
+                    <div class="inner">
+                      <img src="/media/{{ notice.image }}" alt="post-title" />
+                    </div>
+                  </a>
+                </div>
+                <div class="details clearfix">
+                  <h6 class="post-title my-0"><a href="{% url 'ReadMore' category=notice.category slug=notice.slug %}">{{ notice.title|slice:":60" }} ...</a></h6>
+                  <ul class="meta list-inline mt-1 mb-0">
+                    <li class="list-inline-item">{{ notice.created|date:"d M Y" }}</li>
+                  </ul>
+                </div>
+              </div>
+              {% endfor %}
+              <!-- post -->
+            </div>
+            <div class="col-sm-6">
+              <!-- post large -->
+              {% for notice in notices|slice:"3:4" %}
+              <div class="post">
+                <div class="thumb rounded">
+                  <a href="{% url 'CategoryRead' category=notice.category %}" class="category-badge position-absolute">{{ notice.category }}</a>
+                  <a href="{% url 'ReadMore' category=notice.category slug=notice.slug %}">
+                    <div class="inner">
+                      <img src="/media/{{ notice.image }}" alt="post-title" />
+                    </div>
+                  </a>
+                </div>
+                <ul class="meta list-inline mt-4 mb-0">
+                  <li class="list-inline-item"><a href="{% url 'home' %}"><img src="/media/images/other/Result24bd.png" style="border-radius:50%;background:#ebebeb;" class="author" width="30px" height="30px" alt="author"/>{{ notice.user.profile.username }}</a></li>
+                  <li class="list-inline-item">{{ notice.created|date:"d M Y" }}</li>
+                </ul>
+                <h5 class="post-title mb-3 mt-3"><a href="{% url 'ReadMore' category=notice.category slug=notice.slug %}">{{ notice.title|slice:":60" }}</a></h5>
+                <p class="excerpt mb-0">{{ notice.discription|slice:":200"|safe }}</p>
+              </div>
+              {% endfor %}
+              <!-- post -->
+              {% for notice in notices|slice:"4:6" %}
+              <div class="post post-list-sm square before-seperator">
+                <div class="thumb rounded">
+                  <a href="{% url 'ReadMore' category=notice.category slug=notice.slug %}">
+                    <div class="inner">
+                      <img src="/media/{{ notice.image }}" alt="post-title" />
+                    </div>
+                  </a>
+                </div>
+                <div class="details clearfix">
+                  <h6 class="post-title my-0"><a href="{% url 'ReadMore' category=notice.category slug=notice.slug %}">{{ notice.title|slice:":60" }}</a></h6>
+                  <ul class="meta list-inline mt-1 mb-0">
+                    <li class="list-inline-item">{{ notice.created|date:"d M Y" }}</li>
+                  </ul>
+                </div>
+              </div>
+              {% endfor %}
+              <!-- post -->
+            </div>
+          </div>
+          <div class="text-center pt-5">
+            <button class="btn btn-simple">View More</button>
+          </div>
+        </div>
+        <!-- --------------------------------------------------------------------------- -->
+                                          <!-- end-Notice aria -->
+        <!-- --------------------------------------------------------------------------- -->
+
+        <div class="ads-horizontal text-md-center">
+          <span class="ads-title">- Sponsored Ad -</span>
+          <a href="https://click.daraz.com.bd/e/_66FpX" target="_blank">
+            <img src="/media/Ads/728x90.jpg" alt="Advertisement" />
+          </a>
+        </div>
+
+
+        <div class="spacer" data-height="50"></div>
+
+        <!-- section header -->
+        <div class="section-header">
+          <h3 class="section-title"><a style="color:#203656" href="#">Islamic</a></h3>
+          <img src="/media/images/wave.svg" class="wave" alt="wave" />
+        </div>
+
+        <div class="padding-30 rounded bordered">
+          <div class="row gy-5">
+            <div class="col-sm-6">
+              <!-- post -->
+              {% for islamic in islamics|slice:":1" %}
+              <div class="post">
+                <div class="thumb rounded">
+                  <a href="{% url 'CategoryRead' category=islamic.category %}" class="category-badge position-absolute">{{ islamic.category }} </a>
+                  <a href="{% url 'ReadMore' category=islamic.category slug=islamic.slug %}">
+                    <div class="inner">
+                      <img src="/media/{{ islamic.image }}" alt="post-title" />
+                    </div>
+                  </a>
+                </div>
+                <ul class="meta list-inline mt-4 mb-0">
+                  <li class="list-inline-item"><a href="{% url 'home' %}"><img src="/media/images/other/Result24bd.png" style="border-radius:50%;background:#ebebeb;" class="author" width="30px" height="30px" alt="author"/>{{ islamic.user.profile.username }}</a></li>
+                  <li class="list-inline-item">{{ islamic.created|date:"d M Y" }}</li>
+                </ul>
+                <h5 class="post-title mb-3 mt-3"><a href="{% url 'ReadMore' category=islamic.category slug=islamic.slug %}">{{ islamic.title|slice:":60" }}...</a></h5>
+                <p class="excerpt mb-0">{{ islamic.discription|slice:":100"|safe }} ...</p>
+              </div>
+              {% endfor %}
+            </div>
+            <div class="col-sm-6">
+              <!-- post -->
+              {% for islamic in islamics|slice:"1:5" %}
+              <div class="post post-list-sm square">
+                <div class="thumb rounded">
+                  <a href="{% url 'ReadMore' category=islamic.category slug=islamic.slug %}">
+                    <div class="inner">
+                      <img src="/media/{{ islamic.image }}" alt="post-title" />
+                    </div>
+                  </a>
+                </div>
+                <div class="details clearfix">
+                  <h6 class="post-title my-0"><a href="{% url 'ReadMore' category=islamic.category slug=islamic.slug %}">{{ islamic.title|slice:":60" }} ...</a></h6>
+                  <ul class="meta list-inline mt-1 mb-0">
+                    <li class="list-inline-item">{{ islamic.created|date:"d M Y" }}</li>
+                  </ul>
+                </div>
+              </div>
+              {% endfor %}
+
+            </div>
+          </div>
+          <div class="text-center pt-5">
+            <button class="btn btn-simple">View More</button>
+          </div>
+        </div>
+
+        <!-- --------------------------------------------------------------------------- -->
+                                          <!-- end-Islamic aria -->
+        <!-- --------------------------------------------------------------------------- -->
+
+        <div class="ads-horizontal text-md-center">
+          <span class="ads-title">- Sponsored Ad -</span>
+          <a href="https://click.daraz.com.bd/e/_66FpX" target="_blank">
+            <img src="/media/Ads/728x90.jpg" alt="Advertisement" />
+          </a>
+        </div>
+
+        <div class="spacer" data-height="50"></div>
+
+        <!-- section header -->
+        <div class="section-header">
+          <h3 class="section-title"><a style="color:#203656" href="#">Job Circular</a></h3>
+          <img src="/media/images/wave.svg" class="wave" alt="wave" />
+        </div>
+
+        <div class="padding-30 rounded bordered">
+
+          <div class="row">
+            {% for JobCircular in job_circulars|slice:":10" %}
+            <div class="col-md-12 col-sm-6">
+              <!-- post -->
+              <div class="post post-list clearfix">
+                <div class="thumb rounded">
+                  <a href="{% url 'ReadMore' category=JobCircular.category slug=JobCircular.slug %}">
+                    <div class="inner">
+                      <img src="/media/{{ JobCircular.image }}" alt="post-title" />
+                    </div>
+                  </a>
+                </div>
+                <div class="details">
+                  <ul class="meta list-inline mb-3">
+                    <li class="list-inline-item"><a href="{% url 'home' %}"><img src="/media/images/other/Result24bd.png" style="border-radius:50%;background:#ebebeb;" class="author" width="30px" height="30px" alt="author"/>{{ JobCircular.user.profile.username }}</a></li>
+                    <li class="list-inline-item"><a href="{% url 'CategoryRead' category=JobCircular.category %}">{{ JobCircular.category }}</a></li>
+                    <li class="list-inline-item">{{ JobCircular.created|date:"d M Y" }}</li>
+                  </ul>
+                  <h5 class="post-title"><a href="{% url 'ReadMore' category=JobCircular.category slug=JobCircular.slug %}">{{ JobCircular.title|slice:":60" }} ...</a></h5>
+                  <p class="excerpt mb-0">{{ JobCircular.discription|slice:":250"|safe }} ...</p>
+                  <div class="post-bottom clearfix d-flex align-items-center">
+                    <div class="social-share me-auto">
+                      <button class="toggle-button icon-share"></button>
+                      <ul class="icons list-unstyled list-inline mb-0">
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-pinterest"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="far fa-envelope"></i></a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+             {% endfor %}
+
+          </div>
+          <!-- load more button -->
+          <div class="text-center">
+            <button class="btn btn-simple">View More</button>
+          </div>
+        </div>
+        <!-- --------------------------------------------------------------------------- -->
+                                          <!-- end-Job Circular aria -->
+        <!-- --------------------------------------------------------------------------- -->
+
+
+        <div class="ads-horizontal text-md-center">
+          <span class="ads-title">- Sponsored Ad -</span>
+          <a href="https://click.daraz.com.bd/e/_66FpX" target="_blank">
+            <img src="/media/Ads/728x90.jpg" alt="Advertisement" />
+          </a>
+        </div>
+
+
+      </div>
+      <div class="col-lg-4">
+
+        <!-- sidebar -->
+        <div class="sidebar">
+          <!-- widget about -->
+          <div class="widget rounded">
+            <div class="widget-about data-bg-image text-center" data-bg-image="images/map-bg.png">
+              <a href="https://click.daraz.com.bd/e/_66FpX" target="_blank">
+              <img src="/media/Ads/300x250.jpg" alt="logo" class="mb-4" />
+              </a>
+            </div>
+          </div>
+
+          <!-- widget popular posts -->
+          <div class="widget rounded">
+            <div class="widget-header text-center">
+              <h3 class="widget-title">Popular Posts</h3>
+              <img src="/media/images/wave.svg" class="wave" alt="wave" />
+            </div>
+            <div class="widget-content">
+              <!-- post -->
+              {% for popular in populars|slice:"4:15" %}
+              <div class="post post-list-sm circle">
+                <div class="thumb circle">
+                  <a href="{% url 'ReadMore' category=popular.category slug=popular.slug %}">
+                    <div class="inner">
+                      <img src="/media/{{ popular.image }}" alt="post-title" />
+                    </div>
+                  </a>
+                </div>
+                <div class="details clearfix">
+                  <h6 class="post-title my-0"><a href="{% url 'ReadMore' category=popular.category slug=popular.slug %}">{{ popular.title|slice:":60" }} ...</a></h6>
+                  <ul class="meta list-inline mt-1 mb-0">
+                    <li class="list-inline-item">{{ popular.created|date:"d M Y" }}</li>
+                  </ul>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+
+
+
+          <!-- widget categories -->
+          <!-- <div class="widget rounded">
+            <div class="widget-header text-center">
+              <h3 class="widget-title">Explore Topics</h3>
+              <img src="/media/images/wave.svg" class="wave" alt="wave" />
+            </div>
+            <div class="widget-content">
+              <ul class="list">
+                <li><a href="#">Lifestyle</a><span>(5)</span></li>
+                <li><a href="#">Inspiration</a><span>(2)</span></li>
+                <li><a href="#">Fashion</a><span>(4)</span></li>
+                <li><a href="#">Politic</a><span>(1)</span></li>
+                <li><a href="#">Trending</a><span>(7)</span></li>
+                <li><a href="#">Culture</a><span>(3)</span></li>
+              </ul>
+            </div>
+
+          </div> -->
+
+          <!-- widget newsletter -->
+          <div class="widget rounded">
+            <div class="widget-header text-center">
+              <h3 class="widget-title">Newsletter</h3>
+              <img src="/media/images/wave.svg" class="wave" alt="wave" />
+            </div>
+            <div class="widget-content">
+              <span class="newsletter-headline text-center mb-3">Join 1,000+ subscribers!</span>
+              <form action="{% url 'NewsLetterSub' %}" method="POST">
+                <div class="mb-2">
+                  <label for="email"></label>
+                  <input name='email' class="form-control w-100 text-center" placeholder="Email address…" type="email" required>
+                </div>
+                {% csrf_token %}
+                <button class="btn btn-default btn-full" type="submit">Sign Up</button>
+              </form>
+              <span class="newsletter-privacy text-center mt-3">By signing up, you agree to our <a href="#">Privacy Policy</a></span>
+            </div>
+          </div>
+
+
+
+          <!-- widget post carousel -->
+          <div class="widget rounded">
+            <div class="widget-header text-center">
+              <h3 class="widget-title">Recent</h3>
+              <img src="/media/images/wave.svg" class="wave" alt="wave" />
+            </div>
+            <div class="widget-content">
+              <div class="post-carousel-widget">
+                <!-- post -->
+                {% for all in allpost|slice:"4:20" %}
+                <div class="post post-carousel">
+                  <div class="thumb rounded">
+                    <a href="{% url 'CategoryRead' category=all.category %}" class="category-badge position-absolute">{{ all.category }}</a>
+                    <a href="{% url 'ReadMore' category=all.category slug=all.slug %}">
+                      <div class="inner">
+                        <img src="/media/{{ all.image }}" alt="post-title" />
+                      </div>
+                    </a>
+                  </div>
+                  <h5 class="post-title mb-0 mt-4"><a href="{% url 'ReadMore' category=all.category slug=all.slug %}">{{ all.title }}</a></h5>
+                  <ul class="meta list-inline mt-2 mb-0">
+                    <li class="list-inline-item"><a href="#">{{ all.user.profile.username }}</a></li>
+                    <li class="list-inline-item">{{ all.created|date:"d M Y" }}</li>
+                  </ul>
+                </div>
+                {% endfor %}
+
+              </div>
+              <!-- carousel arrows -->
+              <div class="slick-arrows-bot">
+                <button type="button" data-role="none" class="carousel-botNav-prev slick-custom-buttons" aria-label="Previous"><i class="icon-arrow-left"></i></button>
+                <button type="button" data-role="none" class="carousel-botNav-next slick-custom-buttons" aria-label="Next"><i class="icon-arrow-right"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- widget advertisement -->
+          <div class="widget no-container rounded text-md-center">
+            <span class="ads-title">- Sponsored Ad -</span>
+            <a href="#" class="widget-ads">
+              <a href="https://click.daraz.com.bd/e/_66FpX" target="_blank">
+              <img src="/media/Ads/300x250.jpg" alt="logo" class="mb-4" />
+            </a>
+          </div>
+
+          <!-- widget tags -->
+          <div class="widget rounded">
+            <div class="widget-header text-center">
+              <h3 class="widget-title">Tag Clouds</h3>
+              <img src="/media/images/wave.svg" class="wave" alt="wave" />
+            </div>
+            <div class="widget-content">
+              <a href="#" class="tag">#Trending</a>
+              <a href="#" class="tag">#Video</a>
+              <a href="#" class="tag">#Featured</a>
+              <a href="#" class="tag">#Gallery</a>
+              <a href="#" class="tag">#Celebrities</a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+{% endblock %}

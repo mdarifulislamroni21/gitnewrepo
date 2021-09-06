@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block body_block %}
+<section class="signup">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+   <div style="background-color:#e6e8e6;width:936px;" class="form container w-600 border p-5 mt-5 mb-5">
+     <h1 class="" style="font-size:45px;text-align:center;padding-bottom:20px">Edid Post</h1>
+     <form enctype="multipart/form-data" method="POST">
+        {{ form|crispy }}
+        {{ form.media }}
+        {% csrf_token %}
+        <button type="submit" class="btn btn-info">Save Post</button>
+     </form>
+     <a href="{% url 'DeletePost' slug=slug category=category %}" type="submit" class="btn btn-danger mt-5">Delete Post</a href="{% url 'DeletePost' %">
+   </div>
+</section>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block body_block %}
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+<section class="signup">
+
+   <div style="background-color:#e6e8e6;" class="form container w-600 border p-5 mt-5 mb-5">
+     <h1 class="" style="font-size:45px;text-align:center;padding-bottom:20px">{{button2}}</h1>
+     <form method="POST">
+       {% if state %}
+       <div class="" style="color:red">
+           <p style="color:red">{{state}}</p>
+       </div>
+       {% endif %}
+        {{ form|crispy }}
+        {% csrf_token %}
+        <button type="submit" class="btn btn-info">{{button}}</button>
+     </form>
+   </div>
+</section>
+{% endblock %}
